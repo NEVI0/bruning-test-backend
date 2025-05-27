@@ -21,3 +21,4 @@ docker-compose exec app php artisan migrate
 # Run server
 
 docker-compose exec app php artisan serve
+docker-compose up
