@@ -1,24 +1,107 @@
-# Stop any running containers
+# API de Colaboradores
 
-docker-compose down
+Esta é uma API RESTful desenvolvida em Laravel para um sistema de gerenciamento de colaboradores.
 
-# Remove any existing volumes to start fresh
+## Requisitos
 
-docker-compose down -v
+-   Docker
+-   Docker Compose
 
-# Rebuild and start the containers
+## Configuração do Projeto
 
-docker-compose up -d --build
+1. Clone o repositório:
 
-# Generate application key
+```bash
+git clone https://github.com/NEVI0/bruning-test-backend.git
+cd bruning-test-backend
+```
 
+2. Configure as variáveis de ambiente:
+
+```bash
+cp .env.example .env
+```
+
+3. Inicie os containers Docker:
+
+```bash
+docker-compose up -d
+```
+
+4. Instale as dependências do projeto:
+
+```bash
+docker-compose exec app composer install
+```
+
+5. Gere a chave da aplicação:
+
+```bash
 docker-compose exec app php artisan key:generate
+```
 
-# Run migrations
+6. Execute as migrações do banco de dados:
 
+```bash
 docker-compose exec app php artisan migrate
+```
 
-# Run server
+## Executando o Projeto
 
-docker-compose exec app php artisan serve
-docker-compose up
+O projeto estará disponível em `http://localhost:8000`
+
+### Endpoints da API
+
+#### Listar Colaboradores
+
+-   **GET** `/api/employee`
+-   Retorna a lista de todos os colaboradores
+
+#### Criar Colaborador
+
+-   **POST** `/api/employee`
+-   Body:
+
+```json
+{
+    "id": "string",
+    "name": "string",
+    "nickname": "string",
+    "father": "string",
+    "mother": "string",
+    "document": "string",
+    "birthdate": "string",
+    "jobDate": "string"
+}
+```
+
+#### Atualizar Colaborador
+
+-   **PUT** `/api/employee/{id}`
+-   Body:
+
+```json
+{
+    "name": "string",
+    "nickname": "string",
+    "father": "string",
+    "mother": "string",
+    "document": "string",
+    "birthdate": "string",
+    "jobDate": "string"
+}
+```
+
+#### Deletar Colaborador
+
+-   **DELETE** `/api/employee/{id}`
+
+## Estrutura do Projeto
+
+-   `app/Http/Controllers/EmployeeController.php` - Controlador principal da API
+-   `routes/api.php` - Definição das rotas da API
+-   `database/migrations` - Migrações do banco de dados
+
+## Banco de Dados
+
+O projeto utiliza PostgreSQL como banco de dados. As configurações de conexão podem ser encontradas no arquivo `.env`.
